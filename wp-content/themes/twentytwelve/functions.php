@@ -508,3 +508,81 @@ function twentytwelve_customize_preview_js() {
 	wp_enqueue_script( 'twentytwelve-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
 }
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
+
+
+
+
+/*  Custom code to customize login form*/
+
+
+// function custom_login_css() {
+// //echo 'link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/login/login-style.css";';
+// //wp_register_style('custom-style', get_template_directory_uri() . '/login/login-style.css', array( 'twentytwelve-style' ), '20121011' );
+//  //wp_enqueue_style( 'custom-style' );
+
+
+// }
+
+
+
+// add_action('login_head', 'custom_login_css');
+
+
+
+function custom_login_css() {
+echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/login/login-style.css";/>';
+	//echo '&lt;link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/login/login-style.css" /&gt;';
+}
+add_action('login_head', 'custom_login_css');
+
+//Remove the Lost Password Link from login page
+
+function remove_lostpassword_text ( $text ) {
+if ($text == 'Lost your password?'){$text = '';}
+return $text;
+}
+add_filter( 'gettext', 'remove_lostpassword_text' );
+
+//Hide the Login Error Message
+
+add_filter('login_errors',create_function('$a', "return null;"));
+
+//Remove the Login Page Shake
+
+function my_login_head() {
+remove_action('login_head', 'wp_shake_js', 12);
+}
+add_action('login_head', 'my_login_head');
+
+//Change the Redirect URL
+
+function admin_login_redirect( $redirect_to, $request, $user )
+{
+global $user;
+if( isset( $user->roles ) && is_array( $user->roles ) ) {
+if( in_array( "administrator", $user->roles ) ) {
+return $redirect_to;
+} else {
+return home_url();
+}
+}
+else
+{
+return $redirect_to;
+}
+}
+add_filter("login_redirect", "admin_login_redirect", 10, 3);
+
+
+
+//Set “Remember Me” To Checked
+
+function login_checked_remember_me() {
+add_filter( 'login_footer', 'rememberme_checked' );
+}
+add_action( 'init', 'login_checked_remember_me' );
+
+function rememberme_checked() {
+echo "<script>document.getElementById('rememberme').checked = true;</script>";
+}
+
