@@ -9,10 +9,10 @@ parent::__construct(
 'wpb_widget', 
 
 // Widget name will appear in UI
-__('WPBeginner Widget', 'wpb_widget_domain'), 
+__('shishir test widget', 'test_shishir'), 
 
 // Widget description
-array( 'description' => __( 'Sample widget based on WPBeginner Tutorial', 'wpb_widget_domain' ), ) 
+array( 'description' => __( 'Sample widget based on WPBeginner Tutorial', 'test_shishir' ), ) 
 );
 }
 
@@ -26,7 +26,7 @@ if ( ! empty( $title ) )
 echo $args['before_title'] . $title . $args['after_title'];
 
 // This is where you run the code and display the output
-echo __( 'Hello, World!', 'wpb_widget_domain' );
+echo __( 'Hello, World!', 'test_shishir' );
 echo $args['after_widget'];
 }
 		
@@ -36,7 +36,7 @@ if ( isset( $instance[ 'title' ] ) ) {
 $title = $instance[ 'title' ];
 }
 else {
-$title = __( 'New title', 'wpb_widget_domain' );
+$title = __( 'New title', 'test_shishir' );
 }
 // Widget admin form
 ?>
@@ -59,4 +59,4 @@ return $instance;
 function wpb_load_widget() {
 	register_widget( 'wpb_widget' );
 }
-add_action( 'widgets_init', 'wpb_load_widget' );
+add_action( 'widgets_init', 'test_shishir' );

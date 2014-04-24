@@ -587,5 +587,7 @@ echo "<script>document.getElementById('rememberme').checked = true;</script>";
 }
 
 
+//add custom widget widget class
 
+require_once('func_widget.php');
 
